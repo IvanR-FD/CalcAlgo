@@ -8,7 +8,7 @@ versionAI = '2.1'
 # define size of set
 lengthOfSet       = 16 # int(input('select the size of the set to bi analyzed: '))
 lengthOfRows      = 56 # int(input('select the amount of rows to be played: '))
-timeStampforPlay  = '2025-01-28' # input('enter the date to be played: 09')
+timeStampforPlay  = '2025-01-28' # input('enter the date to be played: 10')
 
 # if input('create Model') == 'y':
 #     AIcalculations.createModel()
