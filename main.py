@@ -7,6 +7,7 @@ versionAI = '2.1'
 
 # define size of set
 lengthOfSet       = 16 # int(input('select the size of the set to bi analyzed: '))
+lengthOfSetAI     = 32 # int(input('select the size of the set to bi analyzed: '))
 lengthOfRows      = 56 # int(input('select the amount of rows to be played: '))
 timeStampforPlay  = '2025-01-31' # input('enter the date to be played: ')
 
@@ -27,9 +28,9 @@ if mod == '0':
 
 elif mod == '3':
     versionAI = '2.3'
-    lengthOfSet = 1000
+    lengthOfSetAI = 1000
 
-    ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
+    ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSetAI)
 
     cntOfListItems = 0
     RowsToBeplayed = []
@@ -46,11 +47,11 @@ elif mod == '3':
 else:
      # get set of numbers from DB
     if mod == '1':  # all sets 2.1
-        lengthOfSet = 1000
+        lengthOfSetAI = 1000
     else:           # 16 last sets 2.2
         versionAI = '2.2'
     
-    ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
+    ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSetAI)
     SuggestionListAI = AIcalculations.AIcalculaionsProcedure(ListOfNumbers)
 
     # get randomized values from suggestion list
