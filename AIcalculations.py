@@ -249,6 +249,7 @@ def createModelNvWithError(Values):
 
         model.add(keras.layers.Dense(264, activation='relu'))
         model.add(keras.layers.Dense(264, activation='relu'))
+        model.add(keras.layers.Dense(264, activation='relu'))
         model.add(keras.layers.Dense(7))
 
         model.compile(optimizer='adam', loss='mse', metrics=['mae'])
@@ -263,7 +264,7 @@ def createModelNvWithError(Values):
         # training of the model
         history = model.fit(
             x_train, y_train,
-            epochs=45,
+            epochs=60,
             batch_size=32,
             validation_data=(x_test, y_test),
             verbose=1
@@ -336,6 +337,7 @@ def createModelNvWithError(Values):
 
         modelErr.add(keras.layers.Dense(264, activation='relu'))
         modelErr.add(keras.layers.Dense(264, activation='relu'))
+        modelErr.add(keras.layers.Dense(264, activation='relu'))
         modelErr.add(keras.layers.Dense(7))
 
         modelErr.compile(optimizer='adam', loss='mse', metrics=['mae'])
@@ -350,7 +352,7 @@ def createModelNvWithError(Values):
         # training of the model
         historyErr = modelErr.fit(
             x_trainErr, y_trainErr,
-            epochs=45,
+            epochs=60,
             batch_size=32,
             validation_data=(x_testErr, y_testErr),
             verbose=1
