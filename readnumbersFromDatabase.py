@@ -46,6 +46,51 @@ def getDBValues(lengthOfSet):
             connection.close()
             print("Database connection closed")
 
+# get values from DB with day of week
+def getDBValuesDOW(lengthOfSet):
+    try:
+        connection = mysql.connector.connect(
+        host="localhost",
+        user="admin",
+        password="admin",
+        database="mytestdbscheme"
+        )
+
+        cursor = connection.cursor()
+
+        command = 'CALL `mytestdbscheme`.`getNumbersWithDayOfWeek`('+ str(lengthOfSet) + ', @out1);\n '
+        cursor.execute(command)
+        cursor.fetchall()
+
+        command = 'SELECT  @out1;'
+        cursor.execute(command)
+        result = cursor.fetchall()
+
+        # split arrays from object
+        ResultList = str(result).split(';')
+
+        # remove useless chars from strings
+        ResultList[0] = ResultList[0][3:]
+        ResultList[-1] = ResultList[-1][: ResultList[-1].__len__() - 4]
+        
+        IntResultArray = []
+
+        # split strings in int arrays
+        for sublist in ResultList:       
+            IntResultArray.insert(IntResultArray.__len__(),list(map(int, sublist.split(','))))
+
+        return IntResultArray
+
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
+    
+    finally:
+        if 'connection' in locals() and connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("Database connection closed")
 
 def writeSuggestionsintoDB(RowToPlay, timeStamp, vers):
     try:

@@ -13,7 +13,7 @@ timeStampforPlay  = '2025-02-04' # input('enter the date to be played: ')
 
 # if input('create Model') == 'y':
 #     AIcalculations.createModel()
-mod = input('select model: 1.4 statistics 0, 2.1 AI 1 (all sets), 2.2 AI 2 (selected sets), 2.3 AI 3 no random: ')  
+mod = input('select model: 1.4 statistics 0, 2.1 AI 1 (all sets), 2.2 AI 2 (selected sets), 2.3 AI 3 no random, 2.4 AI no rand + dayOfWeek: ')  
 if mod == '0':
     # get set of numbers from DB
     ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
@@ -40,9 +40,30 @@ elif mod == '3':
         if RowsToBeplayed == [] or not calculateStatistics.checkListIsallreadyused(RowsToBeplayed,SuggestionListAI):
             RowsToBeplayed.insert(cntOfListItems,SuggestionListAI)
             cntOfListItems += 1
+            print('****************************\n' + str(cntOfListItems))
 
     # save results ?
     readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, versionAI)
+
+elif mod == '4':
+    versionAI = '2.4'
+    lengthOfSetAI = 1000
+
+    ListOfNumbers = readnumbersFromDatabase.getDBValuesDOW(lengthOfSetAI)
+
+    cntOfListItems = 0
+    RowsToBeplayed = []
+    while cntOfListItems < lengthOfRows:
+        SuggestionListAI = AIcalculations.AIcalculaionsProcedureDOW(ListOfNumbers)
+
+        if RowsToBeplayed == [] or not calculateStatistics.checkListIsallreadyused(RowsToBeplayed,SuggestionListAI):
+            RowsToBeplayed.insert(cntOfListItems,SuggestionListAI)
+            cntOfListItems += 1
+            print('****************************\n' + str(cntOfListItems))
+
+    # save results ?
+    readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, versionAI)
+
 
 else:
      # get set of numbers from DB
