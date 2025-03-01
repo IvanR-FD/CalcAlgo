@@ -72,7 +72,7 @@ else:
     else:           # 16 last sets 2.2
         versionAI = '2.2'
     
-    ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSetAI)
+    ListOfNumbers = readnumbersFromDatabase.getDBValuesDOW(lengthOfSetAI)
     SuggestionListAI = AIcalculations.AIcalculaionsProcedureDOW(ListOfNumbers)
 
     # get randomized values from suggestion list
