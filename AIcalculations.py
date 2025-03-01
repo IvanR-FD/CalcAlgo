@@ -10,15 +10,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-# import tensorflow
-# from sklearn.model_selection import train_test_split
-# from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import LSTM, Dense
-# import tensorflow as tf
-# from tensorflow import keras
-# from tensorflow.keras.models import Model
-# from tensorflow.keras.layers import Input, Dense
-
 def AIcalculaionsProcedure(ListOfNumsAI):
     # AIpredictions = createModel(ListOfNumsAI)
     # AIpredictions = createModelNv(ListOfNumsAI)
