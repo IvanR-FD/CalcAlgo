@@ -156,10 +156,10 @@ def randomizeSugetsionValues(Suggests, numOfRow):
             match cntOfNumbers:
                 case n if 0 <= n <= 4:
                     condition = 50
-                    offset = 2    
+                    offset = 3    
                 case _: 
                     condition = 12       
-                    offset = 1
+                    offset = 2
 
             match cntOfNumbers:
                 case n if 0 <= n <= 5:

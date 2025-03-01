@@ -73,7 +73,7 @@ else:
         versionAI = '2.2'
     
     ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSetAI)
-    SuggestionListAI = AIcalculations.AIcalculaionsProcedure(ListOfNumbers)
+    SuggestionListAI = AIcalculations.AIcalculaionsProcedureDOW(ListOfNumbers)
 
     # get randomized values from suggestion list
     RowsToBeplayed = calculateStatistics.randomizeSugetsionValues(SuggestionListAI,lengthOfRows)
