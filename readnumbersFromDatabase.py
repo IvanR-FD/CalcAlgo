@@ -58,7 +58,7 @@ def getDBValuesDOW(lengthOfSet):
 
         cursor = connection.cursor()
 
-        command = 'CALL `mytestdbscheme`.`getNumbersWithDayOfWeek`('+ str(lengthOfSet) + ', @out1);\n '
+        command = 'CALL `mytestdbscheme`.`getNumbersWithDayOfWeek1to4`('+ str(lengthOfSet) + ', @out1);\n '
         cursor.execute(command)
         cursor.fetchall()
 
@@ -73,13 +73,41 @@ def getDBValuesDOW(lengthOfSet):
         ResultList[0] = ResultList[0][3:]
         ResultList[-1] = ResultList[-1][: ResultList[-1].__len__() - 4]
         
-        IntResultArray = []
+        IntResultArray1 = []
+        IntResultArray2 = []
+        IntResultArray  = []
 
         # split strings in int arrays
         for sublist in ResultList:       
-            IntResultArray.insert(IntResultArray.__len__(),list(map(int, sublist.split(','))))
+            IntResultArray1.insert(IntResultArray1.__len__(),list(map(int, sublist.split(','))))
 
-        return IntResultArray
+        ResultList = []
+        result     = []  
+
+        command = 'CALL `mytestdbscheme`.`getNumbersWithDayOfWeek5toend`('+ str(lengthOfSet) + ', @out1);\n '
+        cursor.execute(command)
+        cursor.fetchall()
+
+        command = 'SELECT  @out1;'
+        cursor.execute(command)
+        result = cursor.fetchall()
+
+        # split arrays from object
+        
+        ResultList = str(result).split(';')
+
+        # remove useless chars from strings
+        ResultList[0] = ResultList[0][3:]
+        ResultList[-1] = ResultList[-1][: ResultList[-1].__len__() - 4]
+
+        # split strings in int arrays
+        for sublist in ResultList:       
+            IntResultArray2.insert(IntResultArray2.__len__(),list(map(int, sublist.split(','))))
+
+        for i in range(len(IntResultArray1)):
+            IntResultArray1[i].extend(IntResultArray2[i])
+
+        return IntResultArray1
 
 
     except mysql.connector.Error as err:
