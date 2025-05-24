@@ -66,7 +66,57 @@ def calculateStats(ListOfNumbers):
         print(f"error occured: {e}")
         return None
     
+def calculateCorrelation(ListOfNumbers, lengthOfSet):
+    # autocerrelation
+    lenOftops = 3
+    SuggestionList = []
+    Colmin = 1
+    Colmax = [50,12]
 
+    for m in range(7):
+        Col  = []
+    
+        for i in range(list(ListOfNumbers).__len__() - lengthOfSet,list(ListOfNumbers).__len__()):
+            Col.insert( Col.__len__(), ListOfNumbers[i][m])
+        
+        coeff = []
+        for k in range(lengthOfSet):
+            coeff.insert(list(coeff).__len__(), calculateRk(Col, k))
+
+        autocoeff = []
+        for l in range(1,lengthOfSet):
+            autocoeff.insert(list(autocoeff).__len__(), coeff[l]/coeff[0])
+
+
+        top_indices = [i for i, _ in sorted(enumerate(autocoeff), key=lambda x: x[1], reverse=True)[:lenOftops]]
+        
+        changinngOfTops = []
+        for i  in range(list(top_indices).__len__()):
+            changinngOfTops.insert(list(changinngOfTops).__len__(), Col[Col.__len__() - (top_indices[i] + 1)] - Col[Col.__len__() - (top_indices[i] + 2)] )
+            
+        guessedNumbers = []
+        for i in range(list(changinngOfTops).__len__()):
+            localNumber = Col[Col.__len__() - 1] + changinngOfTops[i]
+            if m < 5:
+                localNumber = max(Colmin, min(Colmax[0], localNumber))
+            else:
+                localNumber = max(Colmin, min(Colmax[1], localNumber))
+
+            if not guessedNumbers or not guessedNumbers.__contains__(localNumber):
+                guessedNumbers.insert(list(guessedNumbers).__len__(), localNumber)
+        
+        SuggestionList.append(guessedNumbers)
+
+    return SuggestionList
+
+def calculateRk(ValArray, lag):
+    LocSum = 0
+    for i in range(list(ValArray).__len__() - lag):
+       LocSum += ValArray[i] * ValArray[i + lag]
+    return LocSum
+
+    
+        
 def ListListcontainsValue(MainList, SearchValue):
     for SubList in MainList:
         if SearchValue in SubList:

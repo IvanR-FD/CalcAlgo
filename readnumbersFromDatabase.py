@@ -171,9 +171,9 @@ def saveResultsRequest(RowResults, timeStamp, Version):
         cnt +=  1
 
     cnt = 1
-    if input('use vales: y or n? ') == 'y':
-        for Row in RowResults:
-            readnumbersFromDatabase.writeSuggestionsintoDB(Row, timeStamp,Version)
-            cnt +=  1
+    #if input('use vales: y or n? ') == 'y':
+    for Row in RowResults:
+        readnumbersFromDatabase.writeSuggestionsintoDB(Row, timeStamp,Version)
+        cnt +=  1
 
    
