@@ -9,7 +9,7 @@ versionAI = '2.1'
 lengthOfSet       = 16 # int(input('select the size of the set to bi analyzed: '))
 lengthOfSetAI     = 16 # int(input('select the size of the set to bi analyzed: '))
 lengthOfRows      = 56 # int(input('select the amount of rows to be played: '))
-timeStampforPlay  = '2025-05-27' # input('enter the date to be played: ')
+timeStampforPlay  = '2025-05-30' # input('enter the date to be played: ')
 # mod  = 5
 # automated version
 for models in range(5):   

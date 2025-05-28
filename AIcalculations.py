@@ -547,7 +547,12 @@ def createModelNvWithErrorDOW(Values):
         X_trainErr, X_testErr, Y_trainErr, Y_testErr = train_test_split(InputErr, OutputErr, test_size=0.2, random_state=42)
 
         modelErr.add(keras.layers.Dense(264, activation='relu'))
-        modelErr.add(keras.layers.Dense(264, activation='relu'))
+        modelErr.add(keras.layers.Dense(364, activation='relu'))
+        modelErr.add(keras.layers.Dense(464, activation='relu'))
+        modelErr.add(keras.layers.Dense(564, activation='relu'))
+        modelErr.add(keras.layers.Dense(564, activation='relu'))
+        modelErr.add(keras.layers.Dense(464, activation='relu'))
+        modelErr.add(keras.layers.Dense(364, activation='relu'))
         modelErr.add(keras.layers.Dense(264, activation='relu'))
         modelErr.add(keras.layers.Dense(7))
 
