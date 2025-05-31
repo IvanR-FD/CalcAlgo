@@ -128,7 +128,7 @@ def getNvaluesForSuggests(LocList, short):
     frequence = Counter(LocList[:len(LocList)])
     frequence = frequence.most_common()
 
-        # collect the classified groups
+    # collect the classified groups
     collections = []
     quantity    = []
     
@@ -279,3 +279,50 @@ def randomizeSugetsionListValues(Suggests, numOfRow):
 
 def checkListIsallreadyused(mainList, subList):
     return any(subList == sublist for sublist in mainList)
+
+
+def AddNewItemsToList(ListOfNumsAI, lengthOFlist): 
+    localList   = ListOfNumsAI
+    Suggests    = ListOfNumsAI[0]
+    for sugCnt in range(list(ListOfNumsAI).__len__(), lengthOFlist):
+                
+        gotValidValues = False
+        while not gotValidValues :
+            localSuggestsCollection = []
+            for cntOfNumbers in range(7):
+                tempNmuber = 0
+                match cntOfNumbers:
+                    case n if 0 <= n <= 4:
+                        condition = 50
+                        offset = 3    
+                    case _: 
+                        condition = 12       
+                        offset = 2
+
+                match cntOfNumbers:
+                    case n if 0 <= n <= 6:
+                        indexOfNumber = cntOfNumbers
+
+                    case _:
+                        indexOfNumber = 6
+
+                while tempNmuber <= 0 or tempNmuber > condition or tempNmuber in localSuggestsCollection:
+                    # get the indexed value and add an random offset
+                    randNumber = (int(round((random.random()*2 - 1))) * offset)
+
+                    # get float  number between 0 and 1 and normalize to perform index  
+                    if type(Suggests[indexOfNumber]) == int:
+                        tempNmuber = Suggests[indexOfNumber] + randNumber
+                    else:
+                        tempNmuber = int(round(random.random() * (len(Suggests[indexOfNumber]) - 1)))
+                        tempNmuber = list(Suggests[indexOfNumber])[tempNmuber] + randNumber
+
+                # create one suggestion
+                localSuggestsCollection.append(tempNmuber)
+
+            # check if the suggestion allready in the list
+            if not checkListIsallreadyused(ListOfNumsAI,localSuggestsCollection):
+                gotValidValues = True
+                localList.insert(sugCnt,localSuggestsCollection)
+
+    return localList
