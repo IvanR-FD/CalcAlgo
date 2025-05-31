@@ -212,11 +212,11 @@ def randomizeSugetsionValues(Suggests, numOfRow):
                     offset = 2
 
             match cntOfNumbers:
-                case n if 0 <= n <= 5:
+                case n if 0 <= n <= 6:
                     indexOfNumber = cntOfNumbers
 
                 case _:
-                    indexOfNumber = 5
+                    indexOfNumber = 6
             while tempNmuber <= 0 or tempNmuber > condition or tempNmuber in localSuggestsCollection:
                 # get the indexed value and add an random offset
                 randNumber = (int(round((random.random()*2 - 1))) * offset)
