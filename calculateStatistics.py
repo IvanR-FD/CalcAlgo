@@ -282,6 +282,7 @@ def checkListIsallreadyused(mainList, subList):
 
 
 def AddNewItemsToList(ListOfNumsAI, lengthOFlist): 
+
     localList   = ListOfNumsAI
     Suggests    = ListOfNumsAI[0]
     for sugCnt in range(list(ListOfNumsAI).__len__(), lengthOFlist):
@@ -326,3 +327,29 @@ def AddNewItemsToList(ListOfNumsAI, lengthOFlist):
                 localList.insert(sugCnt,localSuggestsCollection)
 
     return localList
+
+def randomizeCorelatedValues(Suggests, numOfRow):
+    SugestionList = []
+    localCounter = 0
+    randomizedNumbers = 0
+
+    # mixing values with numbers from each column
+    while localCounter < 40000 and randomizedNumbers < numOfRow:
+        localCounter += 1
+        localSuggestsCollection = []
+
+        for column in Suggests :
+            numberSet = False
+            while not numberSet:
+                colIdx = random.randint(0, list(column).__len__() - 1 )
+                guessedNumber = column[colIdx]
+                if localSuggestsCollection == [] or guessedNumber not in localSuggestsCollection:
+                    # create one suggestion
+                    localSuggestsCollection.append(guessedNumber)
+                    numberSet = True
+
+        if SugestionList == [] or localSuggestsCollection not in SugestionList:
+            SugestionList.insert(randomizedNumbers,localSuggestsCollection)
+            randomizedNumbers += 1
+
+    return SugestionList

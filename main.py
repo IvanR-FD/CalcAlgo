@@ -9,10 +9,10 @@ versionAI = '2.1'
 lengthOfSet       = 16 # int(input('select the size of the set to bi analyzed: '))
 lengthOfSetAI     = 16 # int(input('select the size of the set to bi analyzed: '))
 lengthOfRows      = 56 # int(input('select the amount of rows to be played: '))
-timeStampforPlay  = '2025-06-03' # input('enter the date to be played: ')
-# mod  = 1
+timeStampforPlay  = '2025-06-24' # input('enter the date to be played: ')
+# mod  = 5
 # automated version
-for models in range(5):   
+for models in range(6):   
     mod = models
 
     # if input('create Model') == 'y':
@@ -63,19 +63,22 @@ for models in range(5):
         readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, versionAI)
 
 
-    # elif mod == 5:
-    #     version = '1.5'
+    elif mod == 5:
+        version = '1.5'
 
-    #     # get set of numbers from DB
-    #     ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
+        # get set of numbers from DB
+        ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
 
-    #     # calculate the best numbers from past
-    #     SuggestionList = calculateStatistics.calculateCorrelation(ListOfNumbers, lengthOfSet)   
-    #     # get randomized values from suggestion list
-    #     RowsToBeplayed = calculateStatistics.randomizeSugetsionListValues(SuggestionList,lengthOfRows)
+        # calculate the best numbers from past
+        SuggestionList = calculateStatistics.calculateCorrelation(ListOfNumbers, lengthOfSet)   
+        # get randomized values from suggestion list
+        RowsToBeplayed = calculateStatistics.randomizeCorelatedValues(SuggestionList,lengthOfRows)
 
-    #     # save results ?
-    #     readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, version)
+        if RowsToBeplayed.__len__() < lengthOfRows:
+            RowsToBeplayed = calculateStatistics.AddNewItemsToList(RowsToBeplayed,lengthOfRows)
+
+        # save results ?
+        readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, version)
 
     else:
         # get set of numbers from DB
