@@ -2,7 +2,7 @@ import readnumbersFromDatabase
 import calculateStatistics
 import AIcalculations
 
-version = '1.4'
+version = '1.5'
 versionAI = '2.1'
 
 # define size of set
