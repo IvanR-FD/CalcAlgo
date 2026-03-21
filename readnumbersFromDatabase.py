@@ -33,6 +33,8 @@ def getDBValues(lengthOfSet):
         for sublist in ResultList:       
             IntResultArray.insert(IntResultArray.__len__(),list(map(int, sublist.split(','))))
 
+        del IntResultArray[:-lengthOfSet]
+
         return IntResultArray
 
 

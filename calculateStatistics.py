@@ -19,6 +19,7 @@ def calculateStats(ListOfNumbers):
         Col234 = []       
         Col345 = []
         Col45  = []
+        Col12345  = []
         Col67   = []
         
         SuggestionList = []
@@ -26,17 +27,22 @@ def calculateStats(ListOfNumbers):
         for i in range(list(ListOfNumbers).__len__()):
             Col12.insert( Col12.__len__(), ListOfNumbers[i][0])
             Col12.insert( Col12.__len__(), ListOfNumbers[i][1])
-            #Col123.insert(Col123.__len__(), ListOfNumbers[i][0])
+            Col123.insert(Col123.__len__(), ListOfNumbers[i][0])
             Col123.insert(Col123.__len__(), ListOfNumbers[i][1])
             Col123.insert(Col123.__len__(), ListOfNumbers[i][2])
-            #Col234.insert(Col234.__len__(), ListOfNumbers[i][1])
+            Col234.insert(Col234.__len__(), ListOfNumbers[i][1])
             Col234.insert(Col234.__len__(), ListOfNumbers[i][2])
             Col234.insert(Col234.__len__(), ListOfNumbers[i][3])
             Col345.insert(Col345.__len__(), ListOfNumbers[i][2])
             Col345.insert(Col345.__len__(), ListOfNumbers[i][3])
-            # Col345.insert(Col345.__len__(), ListOfNumbers[i][4])
+            Col345.insert(Col345.__len__(), ListOfNumbers[i][4])
             Col45.insert( Col45.__len__(), ListOfNumbers[i][3])
             Col45.insert( Col45.__len__(), ListOfNumbers[i][4])
+            Col12345.insert( Col12345.__len__(), ListOfNumbers[i][0])
+            Col12345.insert( Col12345.__len__(), ListOfNumbers[i][1])
+            Col12345.insert( Col12345.__len__(), ListOfNumbers[i][2])
+            Col12345.insert( Col12345.__len__(), ListOfNumbers[i][3])
+            Col12345.insert( Col12345.__len__(), ListOfNumbers[i][4])
             Col67.insert( Col67.__len__(), ListOfNumbers[i][5])
             Col67.insert( Col67.__len__(), ListOfNumbers[i][6])
 
@@ -142,7 +148,7 @@ def getNvaluesForSuggests(LocList, short):
             localList.insert(0, frequence[i][0])
             localquantity = frequence[i][1]
 
-            # compare the next value with the on which is selected in uuper lop
+            # compare the next value with the one which is selected in upper loop
             for k in range(len(frequence)):
                 # check if the second value is allready in one of the group
                 jumpOver = ListListcontainsValue(collections,frequence[k][0])
@@ -169,22 +175,22 @@ def getNvaluesForSuggests(LocList, short):
                 if num not in bestCollection:
                     bestCollection.append(num)
 
-    if short:
-        if len(all_maxima) > 1:
-            for num in range(len(all_maxima) - 1,-1,-1):
-                quantity.pop(all_maxima[num])
-                collections.pop(all_maxima[num])
+    # if short:
+    #     # if len(all_maxima) > 1:
+    #     #     for num in range(len(all_maxima) - 1,-1,-1):
+    #     #         quantity.pop(all_maxima[num])
+    #     #         collections.pop(all_maxima[num])
 
-        else:
-            quantity.pop(all_maxima[0])
-            collections.pop(all_maxima[0])
+    #     # else:
+    #     #     quantity.pop(all_maxima[0])
+    #     #     collections.pop(all_maxima[0])
 
-        max_value = max(quantity)
-        all_maxima = [index for index, value in enumerate(quantity) if value == max_value]
+    #     max_value = max(quantity)
+    #     all_maxima = [index for index, value in enumerate(quantity) if value == max_value]
 
-        for bestIndex in all_maxima:
-            for num in collections[bestIndex]:
-                bestCollection.append(num)
+    #     for bestIndex in all_maxima:
+    #         for num in collections[bestIndex]:
+    #             bestCollection.append(num)
 
     return bestCollection
 
@@ -237,9 +243,12 @@ def randomizeSugetsionValues(Suggests, numOfRow):
     
 def randomizeSugetsionListValues(Suggests, numOfRow):
     SugestionList = []
+    randSug_contentCntr = 0
 
-    # get original guessed values aswell in the last position       
-    for sugCnt in range(0,numOfRow):
+    while randSug_contentCntr < numOfRow:
+
+        # # get original guessed values aswell in the last position       
+        # for sugCnt in range(0,numOfRow):
         localSuggestsCollection = []
 
         for cntOfNumbers in range(7):
@@ -272,8 +281,17 @@ def randomizeSugetsionListValues(Suggests, numOfRow):
 
             # create one suggestion
             localSuggestsCollection.append(tempNmuber)
+            if  cntOfNumbers == 4: # sort list
+                localSuggestsCollection.sort()
+            elif cntOfNumbers == 6 :    # switch add numbers if first number is bigger
+                if localSuggestsCollection[5] > localSuggestsCollection[6]:
+                    localSuggestsCollection[6] = localSuggestsCollection[5]
+                    localSuggestsCollection[5] = tempNmuber
+
+        if SugestionList == [] or not checkListIsallreadyused(localSuggestsCollection,SugestionList):
+            SugestionList.insert(randSug_contentCntr,localSuggestsCollection)
+            randSug_contentCntr += 1
         
-        SugestionList.insert(sugCnt,localSuggestsCollection)
 
     return SugestionList
 
