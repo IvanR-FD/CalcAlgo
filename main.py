@@ -25,7 +25,7 @@ for models in range(1):
         # calculate the best numbers from past
         SuggestionList = calculateStatistics.calculateStatsAll(ListOfNumbers)   
         # get randomized values from suggestion list
-        RowsToBeplayed = calculateStatistics.randomizeSugetsionListValues(SuggestionList,lengthOfRows)
+        RowsToBeplayed = calculateStatistics.randomizeSugetsionListValuesMixed(SuggestionList,lengthOfRows)
 
         # save results ?
         readnumbersFromDatabase.saveResultsRequest(RowsToBeplayed, timeStampforPlay, version)

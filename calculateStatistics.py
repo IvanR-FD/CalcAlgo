@@ -1,5 +1,7 @@
 from collections import Counter
 import random
+import numpy as np
+import math
 
 def calculateStats(ListOfNumbers):
     try:
@@ -89,7 +91,7 @@ def calculateStatsAll(ListOfNumbers):
             Col67.insert( Col67.__len__(), ListOfNumbers[i][6])
 
         short = False
-        for i in range(6):
+        for i in range(7):
             match i:
                 case 0:
                     LocColumn = Col12345
@@ -101,7 +103,7 @@ def calculateStatsAll(ListOfNumbers):
                     LocColumn = Col12345
                 case 4:
                     LocColumn = Col12345
-                case 5:
+                case 5 | 6:
                     LocColumn = Col67
                     short = True
 
@@ -112,7 +114,10 @@ def calculateStatsAll(ListOfNumbers):
                     Col12345 = [x for x in Col12345 if x not in SuggestionList[i]]  
                 case 5:
                    SuggestionList.insert(i, getNvaluesForSuggests(LocColumn,short))
+                   Col67 = [x for x in Col67 if x not in SuggestionList[i]]  
                 
+                case 6:
+                    SuggestionList[i-1].extend(getNvaluesForSuggests(LocColumn,short))
                 
         return SuggestionList
 
@@ -380,6 +385,73 @@ def randomizeSugetsionListValues(Suggests, numOfRow):
             if  cntOfNumbers == 4: # sort list
                 localSuggestsCollection.sort()
             elif cntOfNumbers == 6 :    # switch add numbers if first number is bigger
+                if localSuggestsCollection[5] > localSuggestsCollection[6]:
+                    localSuggestsCollection[6] = localSuggestsCollection[5]
+                    localSuggestsCollection[5] = tempNmuber
+
+        if SugestionList == [] or not checkListIsallreadyused(localSuggestsCollection,SugestionList):
+            SugestionList.insert(randSug_contentCntr,localSuggestsCollection)
+            randSug_contentCntr += 1
+        
+
+    return SugestionList
+
+def randomizeSugetsionListValuesMixed(Suggests, numOfRow):
+    SugestionList = []
+    randSug_contentCntr = 0
+
+    while randSug_contentCntr < numOfRow:
+
+        # # get original guessed values aswell in the last position       
+        # for sugCnt in range(0,numOfRow):
+        localSuggestsCollection = []
+        
+        for numberindex in range(7):
+            tempNmuber = 0
+
+            # set limits
+            match numberindex:
+                case n if 0 <= n <= 4:
+                    condition = 50
+                    offset = 2    
+                case _: 
+                    condition = 12       
+                    offset = 1
+
+            # select collection for pick a numberfor randomizing
+            match numberindex:
+                case n if 0 <= n <= 4:
+                    valueSet = False
+                    locCounter = numberindex
+                    selectionProbability = 0.5
+                    while not valueSet:
+                        randValue = np.random.rand() 
+                        if randValue > selectionProbability:
+                            locCounter = locCounter - 1 if locCounter > 0 else 0
+                            selectionProbability = math.sqrt(selectionProbability)
+                        else:
+                            loclacollection = Suggests[locCounter]
+                            valueSet = True                    
+
+                case 5 | 6:
+                    loclacollection = Suggests[5]            
+
+            while tempNmuber <= 0 or tempNmuber > condition or tempNmuber in localSuggestsCollection:
+                # get the indexed value and add an random offset
+                randNumber = int(round(np.random.rand() * offset))
+
+                # get float  number between 0 and 1 and normalize to perform index  
+                if type(loclacollection) == int:
+                    tempNmuber = loclacollection + randNumber
+                else:
+                    tempNmuber = int(round(np.random.rand() * (len(loclacollection) - 1)))
+                    tempNmuber = list(loclacollection)[tempNmuber] + randNumber
+
+            # create one suggestion
+            localSuggestsCollection.append(tempNmuber)
+            if  numberindex == 4: # sort list
+                localSuggestsCollection.sort()
+            elif numberindex == 6 :    # switch add numbers if first number is bigger
                 if localSuggestsCollection[5] > localSuggestsCollection[6]:
                     localSuggestsCollection[6] = localSuggestsCollection[5]
                     localSuggestsCollection[5] = tempNmuber
