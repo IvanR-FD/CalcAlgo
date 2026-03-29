@@ -9,7 +9,7 @@ versionAI = '2.1'
 lengthOfSet       = 8 # int(input('select the size of the set to be analyzed: '))
 lengthOfSetAI     = 16 # int(input('select the size of the set to be analyzed: '))
 lengthOfRows      = 6 # int(input('select the amount of rows to be played: '))
-timeStampforPlay  = '2026-03-24' # input('enter the date to be played: ')
+timeStampforPlay  = '2026-03-29' # input('enter the date to be played: ')
 # mod  = 5
 # automated version
 for models in range(1):   
@@ -23,7 +23,7 @@ for models in range(1):
         ListOfNumbers = readnumbersFromDatabase.getDBValues(lengthOfSet)
 
         # calculate the best numbers from past
-        SuggestionList = calculateStatistics.calculateStats(ListOfNumbers)   
+        SuggestionList = calculateStatistics.calculateStatsAll(ListOfNumbers)   
         # get randomized values from suggestion list
         RowsToBeplayed = calculateStatistics.randomizeSugetsionListValues(SuggestionList,lengthOfRows)
 
